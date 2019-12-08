@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class GithubOrgsProvider {
+export class GroupReposProvider {
   headers: HttpHeaders;  
   header: any;
 
@@ -18,31 +18,20 @@ export class GithubOrgsProvider {
     this.header = ({ headers: this.headers });
   }
   
-  getCenters(): Observable<any> {
+  getGroups(): Observable<any> {
     return this.http
-      .get(`${this.baseUrl}/centers`, this.header)
+      .get(`${this.baseUrl}/groups`, this.header)
       .catch(this.handleError);
   }  
-//runreports/GroupSummaryCounts?R_groupId=38948&genericResultSet=false
-   getCentersDetails(centerId:number): Observable<any> {
+
+   getGroupsDetails(groupId:number): Observable<any> {
     return this.http
-      .get(`${this.baseUrl}/centers/${centerId}`, this.header)
+      .get(`${this.baseUrl}/groups/${groupId}`, this.header)
       .catch(this.handleError);
   } 
-   getCenterDetailsSummary(centerId:number): Observable<any> {
+  
+  searchGroups(searchParam: string): Observable<any> {
     return this.http
-      .get(`${this.baseUrl}/runreports/GroupSummaryCounts?R_groupId=${centerId}&genericResultSet=false`, this.header)
-      .catch(this.handleError);
-   }
-   
-    getCenterGroupSummaryDetails(centerId:number): Observable<any> {
-    return this.http
-      .get(`${this.baseUrl}/centers/${centerId}?associations=groupMembers,collectionMeetingCalendar`, this.header)
-      .catch(this.handleError);
-   }
-
-  searchCenters(searchParam: string): Observable<any> {
-     return this.http
       .get(`${this.baseUrl}/search?query=${searchParam}&resource=groups`, this.header)
       .catch(this.handleError);
   }

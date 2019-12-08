@@ -11,28 +11,47 @@ export class GithubUsersProvider {
   headers: HttpHeaders;  
   header: any;
 
-  baseUrl = 'https://api.github.com';
+  baseUrl = 'https://13.126.176.230/mifosng-provider/api/v1';
 
   constructor(public http: HttpClient) {   
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/vnd.github.v3+json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    this.headers = new HttpHeaders({'Accept': 'application/json, text/plain, */*','X-Mifos-Platform-TenantId': 'nirantara',
+                                     'Authorization': 'Basic YWRtaW46bmV0d29ya0AxMjM0NQ=='
+ });
     this.header = ({ headers: this.headers });
   }
 
-  getUsers(): Observable<User[]> {
+  getClients(): Observable<any> {
     return this.http
-      .get<User[]>(`${this.baseUrl}/users`, this.header)
+      .get(`${this.baseUrl}/clients`, this.header)
       .catch(this.handleError);
   }  
 
-  getUserDetails(login: string): Observable<User> {
+  getClientsDetails(clientId: number): Observable<any> {
     return this.http
-      .get<User>(`${this.baseUrl}/users/${login}`, this.header)
+      .get(`${this.baseUrl}/clients/${clientId}`, this.header)
+      .catch(this.handleError);
+  }
+  getAccountsDetails(clientId: number): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/clients/${clientId}/accounts`, this.header)
       .catch(this.handleError);
   }
 
-  searchUsers(searchParam: string): Observable<User[]> {
+  getPartialLoanDetails(clientId: number): Observable<any> {
     return this.http
-      .get<User[]>(`${this.baseUrl}/search/users?q=${searchParam}`, this.header)
+      .get(`${this.baseUrl}/clients/${clientId}`, this.header)
+      .catch(this.handleError);
+  }
+
+  getCBDetailsDetails(clientId: number): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/rblValidation?q${clientId}&clientcbcheck=true&valufor=request`, this.header)
+      .catch(this.handleError);
+  }
+
+  searchClients(searchParam: string): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/search?query=${searchParam}&resource=clients,clientIdentifiers`, this.header)
       .catch(this.handleError);
   }
   

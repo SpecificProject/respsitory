@@ -1,0 +1,60 @@
+<!--
+  Generated template for the GroupdetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>groupdetails</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding *ngIf="centerdetailsLoaded">
+<br>
+<br>
+   <ion-card>
+  <ion-item ><ion-label>External Id  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{groupdeatis.externalId}}</ion-label></ion-item>
+  <ion-item><ion-label>Activation Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{groupdeatis.activationDate}}</ion-label></ion-item>
+ <ion-item ><ion-label>Office&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{groupdeatis.officeName}}</ion-label></ion-item>
+ <ion-item><ion-label>Center &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{groupdeatis.centerName}}</ion-label></ion-item>
+  </ion-card>
+  <br>
+<ion-list>
+    <ion-item>
+    <ion-icon name="add-circle" (click)="expandLoanButtonlick()" color="tertiary">Loan Accounts</ion-icon>
+      <ion-badge item-right>1</ion-badge>
+    </ion-item>
+     <ion-list *ngIf="isShowloansegment">
+    <button ion-item *ngFor="let loanAccount of loanAccounts" (click)="goToDetails(client.id)">
+     <ion-item>{{ loanAccount.accountNo }} &nbsp;&nbsp;&nbsp;&nbsp; {{ loanAccount.productName }} &nbsp;&nbsp;&nbsp;&nbsp;{{ loanAccount.amountPaid }} 
+      <ion-icon name="arrow-forward" item-right></ion-icon></ion-item><br>
+    </button>
+  </ion-list>
+    <ion-item>
+    <ion-icon name="add-circle" (click)="expandSavingsButtonlick()" color="tertiary">Savings Accounts</ion-icon>
+      <ion-badge item-right>1</ion-badge>
+    </ion-item>
+     <ion-list *ngIf="isShowSavingsSegment">
+    <button ion-item *ngFor="let savingAccount of savingsAccounts" (click)="goToDetails(client.id)">
+     <ion-item><ion-icon name="square" color="secondary"></ion-icon> &nbsp;{{ savingAccount.accountNo }} &nbsp;&nbsp;&nbsp;&nbsp; {{ savingAccount.productName }} &nbsp;&nbsp;&nbsp;&nbsp;{{ savingAccount.accountBalance }} 
+      <ion-icon name="arrow-forward" item-right></ion-icon></ion-item><br>
+    </button>
+  </ion-list>
+    <ion-item>
+    <ion-icon name="add-circle" (click)="expandRecurringButtonlick()" color="tertiary">Recurring Accounts</ion-icon>
+      <ion-badge item-right>1</ion-badge>
+    </ion-item>
+     <ion-list *ngIf="isShowRecurringSegement">
+    <button ion-item *ngFor="let client of recurringsAccounts" (click)="goToDetails(client.id)">
+      <ion-avatar item-left>
+        <img [src]="client.avatar_url">
+      </ion-avatar>
+      <h2>{{ client.displayName }}</h2>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </button>
+  </ion-list>
+  </ion-list>
+</ion-content>

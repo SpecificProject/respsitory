@@ -10,32 +10,32 @@ import { UserDetailsPage } from './user-details/user-details';
   templateUrl: 'users.html',
 })
 export class UsersPage {
-  users: User[];
-  originalUsers: User[];
+  clients: any;
+  originalUsers: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private guProvider: GithubUsersProvider) 
   {
-    this.guProvider.getUsers()
-      .subscribe(users => { 
-        this.users = users;  
-        this.originalUsers = users;
+    this.guProvider.getClients()
+      .subscribe(response  => { 
+        this.clients = response.pageItems ;  
+        this.originalUsers = response.pageItems;
       })
   }
   
-  goToDetails(login: string) {
-    this.navCtrl.push(UserDetailsPage, {login});
+  goToDetails(clients: any) {
+    this.navCtrl.push(UserDetailsPage, {clients});
   }
 
   search(searchEvent) {
     let term = searchEvent.target.value
     if (term.trim() === '' || term.trim().length < 3) {
-      this.users = this.originalUsers;
+      this.clients = this.originalUsers;
     } else {
-      this.guProvider.searchUsers(term)
-        .subscribe(users => {
-          this.users = users
+      this.guProvider.searchClients(term)
+        .subscribe(response => {
+          this.clients = response;
       });
     }
   }
