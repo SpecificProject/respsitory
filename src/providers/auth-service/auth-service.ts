@@ -10,7 +10,7 @@ export class User {
   headers: HttpHeaders;  
   header: any;
 
-  baseUrl = 'https://13.126.176.230/mifosng-provider/api/v1/authentication?username=admin&password=network@12345';
+  baseUrl = 'https://13.126.176.230/mifosng-provider/api/v1';
 
   constructor(name: string, email: string,public http: HttpClient) {   
     this.headers = new HttpHeaders({ 'Content-Type': 'application/vnd.github.v3+json', 'Accept': 'application/json, text/plain, */*','X-Mifos-Platform-TenantId': 'nirantara'
@@ -24,7 +24,7 @@ export class AuthService {
   headers: HttpHeaders; 
   header: any;
 
-  baseUrl = 'https://13.126.176.230/mifosng-provider/api/v1/authentication?username=admin&password=network@12345&tenantIdentifier=nirantara';
+  baseUrl = 'https://13.126.176.230/mifosng-provider/api/v1/';
 
   constructor(public http: HttpClient) {   
     this.headers = new HttpHeaders({ 'Content-Type': 'application/vnd.github.v3+json', 'Accept': 'application/json, text/plain, */*','X-Mifos-Platform-TenantId': 'nirantara'
